@@ -1,6 +1,5 @@
 package com.netstar.mapreduce;
 
-import com.netstar.mapreduce.dataType.MyWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -12,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class WordCountRun {
+public class WCRun {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration configuration = new Configuration();
@@ -20,15 +19,15 @@ public class WordCountRun {
 
         FileSystem fs = FileSystem.newInstance(configuration);
         Path inPath = new Path("/article.txt");
-        Path outPath = new Path("/wordCount.txt");
+        Path outPath = new Path("/wc.txt");
         boolean exists = fs.exists(outPath);
         if (exists) {
             fs.delete(outPath, true);
         }
-        Job job = Job.getInstance(configuration, "word count");
+        Job job = Job.getInstance(configuration, "wd mapred");
         job.setJarByClass(Run.class);
-        job.setMapperClass(WordCountMapper.class);
-        job.setReducerClass(WordCountReducer.class);
+        job.setMapperClass(WCMapper.class);
+        job.setReducerClass(WCReducer.class);
 
         // 输出格式，当map和reduce的输出格式不一致时怎么办
         // 以下用于设置map和reduce的输出类型

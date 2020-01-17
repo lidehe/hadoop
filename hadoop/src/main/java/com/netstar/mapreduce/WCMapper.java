@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class WordCountMapper extends Mapper<Object, Text, Text, IntWritable> {
+public class WCMapper extends Mapper<Object, Text, Text, IntWritable> {
     @Override
     protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
         String[] words = value.toString().split(" ");
