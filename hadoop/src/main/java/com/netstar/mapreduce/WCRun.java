@@ -27,6 +27,10 @@ public class WCRun {
         Job job = Job.getInstance(configuration, "wd mapred");
         job.setJarByClass(Run.class);
         job.setMapperClass(WCMapper.class);
+        //2.1G文件
+        //没有使用combine耗时： 2020-01-19 09:22:38,854   2020-01-19 09:27:49,018   =5分10秒
+        //  有使用combine耗时： 2020-01-19 09:30:16,978   2020-01-19 09:31:32,375   =1分02秒
+        job.setCombinerClass(WCReducer.class);
         job.setReducerClass(WCReducer.class);
 
         // 输出格式，当map和reduce的输出格式不一致时怎么办
