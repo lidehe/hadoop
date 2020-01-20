@@ -1,14 +1,11 @@
-package com.netstar.mapreduce;
+package com.netstar.mapreduce.userDefineType;
 
 
-import com.netstar.mapreduce.dataType.MyWritable;
-import org.apache.hadoop.io.IntWritable;
+import com.netstar.mapreduce.userDefineType.MyWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 // 类型有要求吗？不能随便写？
 // 是的，valueout类型要实现writeable接口

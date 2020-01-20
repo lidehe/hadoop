@@ -1,5 +1,6 @@
-package com.netstar.mapreduce;
+package com.netstar.mapreduce.combinerWC;
 
+import com.netstar.mapreduce.userDefineType.Run;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;

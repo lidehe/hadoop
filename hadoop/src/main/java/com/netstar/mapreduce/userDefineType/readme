@@ -1,0 +1,3 @@
+map和reduce的输入输出都会被框架做序列化处理，所以它们处理的类型都要实现writable接口
+其中key一定要实现 WritableComparable，因为会做排序，WritableComparable继承了writable，所以key也实现了writable接口
+    value一定要实现writable

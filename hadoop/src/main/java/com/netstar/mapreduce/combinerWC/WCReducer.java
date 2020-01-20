@@ -1,4 +1,4 @@
-package com.netstar.mapreduce;
+package com.netstar.mapreduce.combinerWC;
 
 
 import org.apache.hadoop.io.IntWritable;

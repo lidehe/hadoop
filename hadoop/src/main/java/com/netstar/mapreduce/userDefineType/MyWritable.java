@@ -1,4 +1,4 @@
-package com.netstar.mapreduce.dataType;
+package com.netstar.mapreduce.userDefineType;
 
 import org.apache.hadoop.io.Writable;
 

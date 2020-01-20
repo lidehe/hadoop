@@ -1,6 +1,5 @@
-package com.netstar.mapreduce;
+package com.netstar.mapreduce.userDefineType;
 
-import com.netstar.mapreduce.dataType.MyWritable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;

@@ -1,0 +1,35 @@
+一个application里多个job如何编写？
+一个application里处理多个格式不同的输入如何编写？
+
+通过一下方式，在一个application里写多个job，每个job处理一个输入，即可完成多输入。
+注意：如果多个输入格式一样，处理方式也一样，只是路径不一样，则一个job即可完成:
+      FileInputFormat.setInputPaths(job2,new Path(""),new Path(""),new Path(""),new Path(""));
+
+第一种方式：
+        使用ControlledJob和JobControl，详细参考https://www.cnblogs.com/hunttown/p/6913811.html
+        Job job1 = new Job(conf, "Join1");
+        ControlledJob ctrljob1 = new ControlledJob(conf);
+        ctrljob1.setJob(job1);
+
+        Job job2 = new Job(conf, "Join2");
+        ControlledJob ctrljob2 = new ControlledJob(conf);
+        ctrljob2.setJob(job2);
+
+        //设置多个作业直接的依赖关系/job-2 的启动，依赖于job-1作业的完成
+        ctrljob2.addDependingJob(ctrljob1);
+
+        //主的控制容器，控制上面的总的两个子作业
+        JobControl jobCtrl = new JobControl("myOutCount");
+        jobCtrl.addJob(ctrljob1);
+        jobCtrl.addJob(ctrljob2);
+
+        jobCtrl.allFinished()
+
+
+第二种方式：
+
+
+
+总结：
+第一种方式，适合多输入、处理方式不同（也可相同）、结果（不同）的任务
+第二种方式，适合多输入、处理方式不同（也可相同）、结果（相同）的任务
