@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.filecache.DistributedCache;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -17,7 +18,7 @@ public class WCRun {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration configuration = new Configuration();
 //        configuration.set("fs.default.name", "hdfs://vm156:9000");
-
+        DistributedCache.addFileToClassPath(new Path(""),configuration);
         FileSystem fs = FileSystem.newInstance(configuration);
         Path inPath = new Path("/article.txt");
         Path outPath = new Path("/wc.txt");
@@ -33,6 +34,8 @@ public class WCRun {
         //  有使用combine耗时： 2020-01-19 09:30:16,978   2020-01-19 09:31:32,375   =1分02秒
         job.setCombinerClass(WCReducer.class);
         job.setReducerClass(WCReducer.class);
+        // 如果设置了reduce的数量会怎么样？分成多个结果吗？
+//        job.setNumReduceTasks(6);
 
         // 输出格式，当map和reduce的输出格式不一致时怎么办
         // 以下用于设置map和reduce的输出类型
@@ -44,7 +47,7 @@ public class WCRun {
 
         FileInputFormat.addInputPath(job, inPath);
         FileOutputFormat.setOutputPath(job, outPath);
-
+        job.cleanupProgress();
         job.waitForCompletion(true);
     }
 }
